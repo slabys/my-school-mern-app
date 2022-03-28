@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from "dotenv"
-dotenv.config({ path: "server/config.env" });
+dotenv.config({ path: "config.env" });
 
 const app = express();
 const PORT = process.env.PORT || 5000
