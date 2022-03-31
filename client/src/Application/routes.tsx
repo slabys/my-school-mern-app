@@ -1,10 +1,10 @@
 import React from 'react';
-import * as LandingPage from 'LandingPage';
+import * as LandingPage from 'Application/LandingPage';
+import * as SingUp from 'Application/SingUp';
 
 export interface EmptyParams {}
 
 export class Route<LinkParams = EmptyParams, Target = React.FunctionComponent<any>> {
-
   public Target: Target;
 
   public path: string;
@@ -20,6 +20,6 @@ export class Route<LinkParams = EmptyParams, Target = React.FunctionComponent<an
   }
 }
 
-export const LandingRoute = new Route<EmptyParams, typeof  LandingPage.Landing>(LandingPage.Landing, '/', () => '/');
+export const LandingRoute = new Route<EmptyParams, typeof LandingPage.Landing>(LandingPage.Landing, '/', () => '/');
 
-export const PostsRoute = new Route<EmptyParams, typeof  LandingPage.Landing>(LandingPage.Landing, '/posts', () => '/posts');
+export const PostsRoute = new Route<EmptyParams, typeof SingUp.Login>(SingUp.Login, '/login', () => '/login');

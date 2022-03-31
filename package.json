@@ -17,8 +17,10 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "vercel-build": "npm run install-client && npm run build",
     "server": "cd server && nodemon index.js",
+    "client": "npm run start --prefix client",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
+    "start": "concurrently \"npm run server\" \"npm run start --prefix client\"",
+    "dev": "concurrently \\”npm run server\\” \\”npm run client\\” "
   },
   "author": "",
   "license": "ISC",

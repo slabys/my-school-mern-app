@@ -1,1 +1,0 @@
-export { Landing, PostPage } from './Langing'
