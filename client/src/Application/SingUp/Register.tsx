@@ -34,13 +34,13 @@ const RegisterInitValues: RegisterValues = {
   password: '',
 };
 
-export const Register: React.FunctionComponent = () => {
+export const Register: React.FunctionComponent<{}> = () => {
   const [, setLocation] = useLocation();
   const dispatch = useDispatch();
 
   const handleSubmit = (values: RegisterValues) => {
     dispatch(registerUser(values));
-    setLocation('/')
+    setLocation('/');
   };
 
   const validationSchema = () => Yup.object({
@@ -61,8 +61,8 @@ export const Register: React.FunctionComponent = () => {
   return (
     <Container maxWidth='xs'>
       <Box
+        pt={4}
         sx={{
-          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -72,7 +72,7 @@ export const Register: React.FunctionComponent = () => {
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <AppRegistrationOutlined />
         </Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component='h1' variant='h5' color='text.primary'>
           Registration
         </Typography>
         <Formik
@@ -121,14 +121,14 @@ export const Register: React.FunctionComponent = () => {
                 </Box>
               </Box>
               <br />
-              <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+              <FormControlLabel
+                control={<Checkbox value='remember' color='primary' />}
+                label={<Typography sx={{ color: 'text.primary' }}>Remember me</Typography>} />
               <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
             </Form>
           )}
-
-
         </Formik>
         <Link href='/login' variant='body2'>
           {'Do you have an account? Log In'}

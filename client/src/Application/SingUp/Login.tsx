@@ -46,20 +46,20 @@ export const Login: React.FunctionComponent = () => {
   });
 
   return (
-    <Container component='main' maxWidth='xs'>
+    <Container maxWidth='xs'>
       <Box
+        pt={4}
         sx={{
-          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          flexGrow: '4'
+          flexGrow: '4',
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LoginOutlined />
         </Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component='h1' variant='h5' color='text.primary'>
           Sign in
         </Typography>
         <Formik
@@ -83,7 +83,9 @@ export const Login: React.FunctionComponent = () => {
               error => <Typography sx={{ color: 'red' }}>{error}</Typography>
             } />
             <br />
-            <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+            <FormControlLabel
+              control={<Checkbox value='remember' />}
+              label={<Typography sx={{ color: 'text.primary' }}>Remember me</Typography>} />
             <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
@@ -96,7 +98,7 @@ export const Login: React.FunctionComponent = () => {
             </Link>
           </Grid>
           <Grid item>
-            <Link href='/register' variant='body2' >
+            <Link href='/register' variant='body2'>
               {'Don\'t have an account? Register'}
             </Link>
           </Grid>
