@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000
 
 import postsRoutes from './routes/posts.js'
-import loginRoutes from './routes/login.js'
+import signUpRoutes from './routes/signUp.js'
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(cors());
@@ -19,7 +19,7 @@ app.use(cors());
  */
 
 app.use('/posts', postsRoutes)
-app.use('/login', loginRoutes)
+app.use('/signup', signUpRoutes)
 
 /**
  * END ROUTES

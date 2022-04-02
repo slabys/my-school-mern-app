@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import posts from './posts'
+import signUp from './signUp'
 
 export interface IRootSelector {
   posts: any
@@ -8,4 +9,5 @@ export interface IRootSelector {
 
 export default combineReducers({
   posts,
+  signUp
 })

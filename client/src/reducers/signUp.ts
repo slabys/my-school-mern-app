@@ -1,8 +1,8 @@
 export default (state = [], action: any) => {
   switch (action.type) {
-    case 'FETCH_ALL':
+    case 'LOGIN':
       return action.payload;
-    case 'CREATE':
+    case 'REGISTER':
       return [...state, action.payload];
     default:
       return state;

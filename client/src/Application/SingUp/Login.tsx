@@ -1,23 +1,49 @@
 import * as React from 'react';
-import { Box, Avatar, Typography, Link, Container, TextField, FormControlLabel, Checkbox, Button, Grid } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useSelector } from 'react-redux';
-import { IRootSelector } from 'reducers';
+import {
+  Box,
+  Avatar,
+  Typography,
+  Link,
+  Container,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Grid,
+} from '@mui/material';
+import { LoginOutlined } from '@mui/icons-material/';
+import { ErrorMessage, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+
+interface LoginValues {
+  email: string,
+  password: string
+}
+
+const LoginInitValues: LoginValues = {
+  email: '',
+  password: '',
+};
 
 export const Login: React.FunctionComponent = () => {
 
-  const posts = useSelector((store: IRootSelector) => store.posts)
+  // const posts = useSelector((store: IRootSelector) => store.posts);
 
-  console.log(posts)
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const handleSubmit = (values: LoginValues) => {
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: values.email,
+      password: values.password,
     });
   };
+
+  const validationSchema = () => Yup.object().shape({
+    email: Yup.string()
+      .email('Enter a valid email')
+      .required('Email is required'),
+    password: Yup.string()
+      .min(8, 'min 8')
+      .required('Password is required'),
+  });
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -27,34 +53,54 @@ export const Login: React.FunctionComponent = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          flexGrow: '4'
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
+          <LoginOutlined />
         </Avatar>
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField margin='normal' required fullWidth id='email' label='Email Address' name='email' autoComplete='email' autoFocus />
-          <TextField margin='normal' required fullWidth name='password' label='Password' type='password' id='password' autoComplete='current-password' />
-          <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
-          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href='#' variant='body2' sx={{ textDecoration: 'line-through'}}>
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href='#' variant='body2' sx={{ textDecoration: 'line-through'}}>
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+        <Formik
+          initialValues={LoginInitValues}
+          onSubmit={(values) => {
+            handleSubmit(values);
+          }}
+          validationSchema={validationSchema}
+        >
+          <Form style={{ width: '100%' }}>
+            <Box>
+              <TextField margin='normal' fullWidth id='email' label='Email Address' name='email'
+                         autoComplete='email' autoFocus />
+              <ErrorMessage name='email' render={
+                error => <Typography sx={{ color: 'red' }}>{error}</Typography>
+              } />
+            </Box>
+            <TextField margin='normal' fullWidth id='password' name='password' label='Password' type='password'
+                       autoComplete='current-password' />
+            <ErrorMessage name='email' render={
+              error => <Typography sx={{ color: 'red' }}>{error}</Typography>
+            } />
+            <br />
+            <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+              Sign In
+            </Button>
+          </Form>
+        </Formik>
+        <Grid container>
+          <Grid item xs>
+            <Link href='#' variant='body2' sx={{ textDecoration: 'line-through' }}>
+              Forgot password?
+            </Link>
           </Grid>
-        </Box>
+          <Grid item>
+            <Link href='/register' variant='body2' >
+              {'Don\'t have an account? Register'}
+            </Link>
+          </Grid>
+        </Grid>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
@@ -67,4 +113,4 @@ const Copyright = (props: any) => {
       {`Copyright © ${new Date().getFullYear()}, TNPW2 project Šimon Slabý.`}
     </Typography>
   );
-}
+};
