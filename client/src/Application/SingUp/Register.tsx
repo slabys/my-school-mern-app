@@ -16,7 +16,7 @@ import * as Yup from 'yup';
 import { Copyright } from 'Application';
 import { useDispatch } from 'react-redux';
 import { registerUser } from 'actions/signUp';
-import { useLocation } from 'wouter';
+// import { useLocation } from 'wouter';
 
 interface RegisterValues {
   name: string,
@@ -34,13 +34,13 @@ const RegisterInitValues: RegisterValues = {
   password: '',
 };
 
-export const Register: React.FunctionComponent<{}> = () => {
-  const [, setLocation] = useLocation();
+export const Register: React.FunctionComponent = () => {
+  // const [, setLocation] = useLocation();
   const dispatch = useDispatch();
 
   const handleSubmit = (values: RegisterValues) => {
     dispatch(registerUser(values));
-    setLocation('/');
+    // setLocation('/');
   };
 
   const validationSchema = () => Yup.object({

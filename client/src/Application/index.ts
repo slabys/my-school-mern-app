@@ -1,3 +1,4 @@
 export { Application } from './Application';
-export { Copyright } from './Copyright';
 export { Navbar } from './Navbar';
+export { Copyright } from './Copyright';
+

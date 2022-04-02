@@ -5,13 +5,12 @@ import { Landing } from 'Application/LandingPage';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getPosts } from 'actions/posts';
-import { Login, Register } from 'Application/SingUp';
+import { SignUpModals } from 'Application/SingUp';
 import {
   Box,
-  createTheme, CssBaseline, darkScrollbar, Dialog, DialogContent, DialogTitle, IconButton,
+  createTheme, CssBaseline, darkScrollbar,
   ThemeProvider,
 } from '@mui/material';
-import { Close } from '@mui/icons-material/';
 import { Navbar } from 'Application/Navbar';
 
 export const Application: React.FunctionComponent = () => {
@@ -49,7 +48,6 @@ const Layout: React.FunctionComponent<{
   children: React.ReactNode,
 }> = ({ children }) => {
   const [location, setLocation] = useLocation();
-  console.log(location);
   return (
     <Box height='100vh'>
       <Box flexGrow='1' sx={theme => ({
@@ -69,37 +67,7 @@ const Layout: React.FunctionComponent<{
         }
       )}>
         {children}
-        {location === '/login' ? (
-          <Dialog maxWidth='sm' fullWidth open scroll='body' onClose={() => {
-            setLocation('/');
-          }}>
-            <DialogTitle>
-              <IconButton sx={{ position: 'absolute', top: '8px', right: '8px' }} onClick={() => {
-                setLocation('/');
-              }}>
-                <Close />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent>
-              <Login />
-            </DialogContent>
-          </Dialog>
-        ) : (location === '/register' ? (
-          <Dialog maxWidth='sm' fullWidth open scroll='body' onClose={() => {
-            setLocation('/');
-          }}>
-            <DialogTitle>
-              <IconButton sx={{ position: 'absolute', top: '8px', right: '8px' }} onClick={() => {
-                setLocation('/');
-              }}>
-                <Close />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent>
-              <Register />
-            </DialogContent>
-          </Dialog>
-        ) : null)}
+        <SignUpModals location={location} onCloseModal={setLocation}/>
       </Box>
     </Box>
   );
