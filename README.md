@@ -1,6 +1,6 @@
 Projekt pro TNPW2 & OWE
 =============
-###Mongoose, Express, React + Redux, Nodejs
+###MongoDB, Express, React + Redux, Nodejs
 ###Spuštění DB
 ```shell
 cd C:\Users\simis\Desktop\TNPW2\mongoDB
