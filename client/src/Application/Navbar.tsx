@@ -19,6 +19,8 @@ import {
   Settings,
 } from '@mui/icons-material';
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 
 
 const SignUpMenu = styled((props: MenuProps) => (
@@ -37,10 +39,35 @@ const SignUpMenu = styled((props: MenuProps) => (
 }));
 
 export const Navbar: React.FunctionComponent<{
-  setLocation: (location: string) => void;
-}> = ({ setLocation }) => {
+  location: string,
+  setLocation: (value: string) => void;
+}> = ({ location, setLocation }) => {
+  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('profile') as string));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  console.log(user);
+  console.log(location);
+
+  React.useEffect(() => {
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken: any = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        handleLogout();
+      }
+    }
+    setUser(JSON.parse(localStorage.getItem('profile') as string));
+  }, [location]);
+
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT' });
+    setUser(null);
+    setLocation('/');
+  };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -90,7 +117,7 @@ export const Navbar: React.FunctionComponent<{
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <Logout fontSize='small' />
             </ListItemIcon>

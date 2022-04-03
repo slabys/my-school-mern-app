@@ -56,7 +56,7 @@ const Layout: React.FunctionComponent<{
           height: 64,
         },
       })} boxShadow={darkTheme.shadows[8]}>
-        <Navbar setLocation={setLocation} />
+        <Navbar location={location} setLocation={setLocation} />
       </Box>
       <Box sx={theme => ({
           backgroundColor: theme.palette.background.paper,
@@ -67,7 +67,7 @@ const Layout: React.FunctionComponent<{
         }
       )}>
         {children}
-        <SignUpModals location={location} onCloseModal={setLocation}/>
+        <SignUpModals location={location} onCloseModal={setLocation} />
       </Box>
     </Box>
   );

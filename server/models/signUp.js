@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 
 const signUpSchema = mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
   },
-  surname: {
+  lastName: {
     type: String,
   },
   nickname: {
     type: String,
-    required: true,
+    unique: true,
   },
   email: {
     type: String,

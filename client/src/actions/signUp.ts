@@ -1,20 +1,22 @@
 import * as api from 'api';
 import { Dispatch } from 'react';
 
-export const loginUser = () => async (dispatch: Dispatch<any>) => {
+export const loginUser = (user: any, setLocation: any) => async (dispatch: Dispatch<any>) => {
   try {
-    const { data } = await api.loginUser();
-    dispatch({ type: 'LOGIN', payload: data });
-  } catch (error) {
-    console.log(error);
+    const { data } = await api.loginUser(user);
+    dispatch({ type: 'AUTH', data });
+    setLocation('/');
+  } catch (error: any) {
+    alert(error.response.data.message);
   }
 };
 
-export const registerUser = (user: any) => async (dispatch: Dispatch<any>) => {
+export const registerUser = (user: any, setLocation: any) => async (dispatch: Dispatch<any>) => {
   try {
     const { data } = await api.registerUser(user);
-    dispatch({ type: 'REGISTER', payload: data });
+    dispatch({ type: 'AUTH', payload: data });
+    setLocation('/');
   } catch (error: any) {
-    alert(error.message.includes('409') ? 'This email is already in use, please use another email address.' : error)
+    alert(error.response.data.message);
   }
 };
