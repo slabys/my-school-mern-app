@@ -17,16 +17,16 @@ import { registerUser } from 'actions/signUp';
 import { useLocation } from 'wouter';
 
 interface RegisterValues {
-  name: string,
-  surname: string,
+  firstName: string,
+  lastName: string,
   nickname: string,
   email: string,
   password: string,
 }
 
 const RegisterInitValues: RegisterValues = {
-  name: '',
-  surname: '',
+  firstName: '',
+  lastName: '',
   nickname: '',
   email: '',
   password: '',
@@ -37,19 +37,14 @@ export const Register: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values: RegisterValues) => {
-    console.log(values);
     dispatch(registerUser(values, setLocation));
-    /**
-     * TODO
-     * Show message that account was created!
-     * */
   };
 
   const validationSchema = () => Yup.object({
-    name: Yup.string(),
-    surname: Yup.string(),
-    nickname: Yup.string(),
-    email: Yup.string().email('Email must be valid').required('Email is required'),
+    firstName: Yup.string().trim(),
+    lastName: Yup.string().trim(),
+    nickname: Yup.string().trim(),
+    email: Yup.string().trim().email('Email must be valid').required('Email is required'),
     password: Yup.string().min(4).required('Password is required'),
     passwordRepeat: Yup.string().min(4).required('Repeat password').when('password', {
       is: (value: string) => (value && value.length > 0 ? true : false),
@@ -91,22 +86,22 @@ export const Register: React.FunctionComponent = () => {
             <Form style={{ width: '100%' }}>
               <Box display='flex' flexDirection='row'>
                 <TextField
-                  value={values.name}
+                  value={values.firstName}
                   onChange={handleChange}
                   sx={{ marginRight: 1 }}
                   margin='normal'
-                  id='name'
-                  label='Name'
-                  name='name'
+                  id='firstName'
+                  label='First name'
+                  name='firstName'
                 />
                 <TextField
-                  value={values.surname}
+                  value={values.lastName}
                   onChange={handleChange}
                   sx={{ marginLeft: 1 }}
                   margin='normal'
-                  id='surname'
-                  label='Surname'
-                  name='surname' />
+                  id='lastName'
+                  label='Last name'
+                  name='lastName' />
               </Box>
               <TextField
                 value={values.nickname}

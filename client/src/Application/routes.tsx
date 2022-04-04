@@ -1,6 +1,6 @@
 import React from 'react';
 import * as LandingPage from 'Application/LandingPage';
-import * as SingUp from 'Application/SingUp';
+import * as Account from 'Application/Account';
 
 export interface EmptyParams {}
 
@@ -22,6 +22,4 @@ export class Route<LinkParams = EmptyParams, Target = React.FunctionComponent<an
 
 export const LandingRoute = new Route<EmptyParams, typeof LandingPage.Landing>(LandingPage.Landing, '/', () => '/');
 
-export const LoginRoute = new Route<EmptyParams, typeof SingUp.Login>(SingUp.Login, '/login', () => '/login');
-
-export const RegisterRoute = new Route<EmptyParams, typeof SingUp.Register>(SingUp.Register, '/register', () => '/register');
+export const AccountRoute = new Route<EmptyParams, typeof Account.Account>(Account.Account, '/account', () => '/account');

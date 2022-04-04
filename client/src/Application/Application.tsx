@@ -1,19 +1,24 @@
 import * as React from 'react';
 import { Route, Switch, useLocation } from 'wouter';
 import * as routes from 'Application/routes';
-import { Landing } from 'Application/LandingPage';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getPosts } from 'actions/posts';
-import { SignUpModals } from 'Application/SingUp';
+import { Login, Register, SignUpModals } from 'Application/SingUp';
 import {
   Box,
   createTheme, CssBaseline, darkScrollbar,
   ThemeProvider,
 } from '@mui/material';
 import { Navbar } from 'Application/Navbar';
+import { useDispatch } from 'react-redux';
+import { getPosts, getLoggedInUser } from 'actions';
 
 export const Application: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getPosts())
+    dispatch(getLoggedInUser(JSON.parse(localStorage.getItem('profile') as string)?.result._id))
+  }, [dispatch]);
+
   return <ThemeProvider theme={darkTheme}>
     <CssBaseline />
     <Layout>
@@ -23,23 +28,10 @@ export const Application: React.FunctionComponent = () => {
 };
 
 const RootRouter: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
-
   return (
     <Switch>
-      <Route path={routes.LandingRoute.path}>
-        <Landing />
-      </Route>
-      <Route path={routes.LandingRoute.path}>
-        <></>
-      </Route>
-      <Route path={routes.LandingRoute.path}>
-        <></>
-      </Route>
+      <Route path={routes.AccountRoute.path} component={routes.AccountRoute.Target} />
+      <Route path={routes.LandingRoute.path} component={routes.LandingRoute.Target} />
     </Switch>
   );
 };
@@ -59,6 +51,7 @@ const Layout: React.FunctionComponent<{
         <Navbar location={location} setLocation={setLocation} />
       </Box>
       <Box sx={theme => ({
+          py: 4,
           backgroundColor: theme.palette.background.paper,
           minHeight: 'calc(100% - 56px)',
           [theme.breakpoints.up('sm')]: {
@@ -67,7 +60,12 @@ const Layout: React.FunctionComponent<{
         }
       )}>
         {children}
-        <SignUpModals location={location} onCloseModal={setLocation} />
+        {location === ('/login')
+          ? <SignUpModals modal={<Login />} onCloseModal={setLocation} />
+          : location === ('/register')
+            ? <SignUpModals modal={<Register />} onCloseModal={setLocation} />
+            : null
+        }
       </Box>
     </Box>
   );

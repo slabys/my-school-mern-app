@@ -4,6 +4,16 @@ import { SignUp } from '../models/signUp.js';
 
 const secret = 'school';
 
+export const getUserInfo = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await SignUp.findById(id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
 export const postLoginUser = async (req, res) => {
   const { email, password } = req.body;
   try {

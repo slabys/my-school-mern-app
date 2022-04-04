@@ -1,11 +1,15 @@
 export default (state = { authData: null }, action: any) => {
   switch (action.type) {
+    case 'GET_USER':
+      return action.payload;
     case 'AUTH':
       localStorage.setItem('profile', JSON.stringify({ ...action.data }));
       return { ...state, authData: action.data, loading: false, errors: null };
     case 'LOGOUT':
       localStorage.clear();
       return { ...state, authData: null, loading: false, errors: null };
+    case 'ERROR':
+      return { ...state, authData: null, loading: false, errors: action.payload };
     default:
       return state;
 

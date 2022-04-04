@@ -1,5 +1,5 @@
 import {
-  AppBar,
+  AppBar, Avatar, Box,
   Divider,
   IconButton,
   ListItemIcon,
@@ -16,11 +16,11 @@ import {
   Logout,
   Menu as MenuIcon,
   Person,
-  Settings,
 } from '@mui/icons-material';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
+import { logoutUser } from 'actions/signUp';
 
 
 const SignUpMenu = styled((props: MenuProps) => (
@@ -45,9 +45,7 @@ export const Navbar: React.FunctionComponent<{
   const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('profile') as string));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  console.log(user);
-  console.log(location);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     const token = user?.token;
@@ -62,11 +60,9 @@ export const Navbar: React.FunctionComponent<{
     setUser(JSON.parse(localStorage.getItem('profile') as string));
   }, [location]);
 
-  const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' });
-    setUser(null);
-    setLocation('/');
+    dispatch(logoutUser(setUser, setLocation))
+
   };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -74,12 +70,15 @@ export const Navbar: React.FunctionComponent<{
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const onOpenLoginDialog = () => {
-    setLocation('/login');
+
+  const stringAvatar = () => {
+    return {
+      children: ((user?.result?.firstName && user?.result?.lastName)
+        ? `${user?.result?.firstName.charAt(0)}${user?.result?.lastName.charAt(0)}`
+        : user?.result?.nickname.charAt(0))?.toUpperCase(),
+    };
   };
-  const onOpenRegisterDialog = () => {
-    setLocation('/register');
-  };
+
   return (
     <AppBar position='sticky'>
       <Toolbar>
@@ -93,10 +92,10 @@ export const Navbar: React.FunctionComponent<{
           <MenuIcon />
         </IconButton>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-          News
+          BizarreBazaar
         </Typography>
         <IconButton onClick={handleClick}>
-          <Person />
+          <Avatar alt={user?.result?.nickname} {...stringAvatar()} />
         </IconButton>
         <SignUpMenu
           open={open}
@@ -104,25 +103,43 @@ export const Navbar: React.FunctionComponent<{
           anchorEl={anchorEl}
           onClose={handleClose}
           onClick={handleClose}>
-          <MenuItem onClick={onOpenLoginDialog}>
-            <LoginOutlined sx={{ marginRight: 1 }} /> Login
-          </MenuItem>
-          <MenuItem onClick={onOpenRegisterDialog}>
-            <AppRegistrationOutlined sx={{ marginRight: 1 }} /> Register
-          </MenuItem>
-          <Divider />
-          <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize='small' />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
-          <MenuItem onClick={handleLogout}>
-            <ListItemIcon>
-              <Logout fontSize='small' />
-            </ListItemIcon>
-            Logout
-          </MenuItem>
+          {!user?.token
+            ? (
+              <Box>
+                <MenuItem onClick={() => {
+                  setLocation('/login')
+                }}>
+                  <LoginOutlined sx={{ marginRight: 1 }} /> Login
+                </MenuItem>
+                <MenuItem onClick={() => {
+                  setLocation('/register')
+                }}>
+                  <AppRegistrationOutlined sx={{ marginRight: 1 }} /> Register
+                </MenuItem>
+                <Divider />
+              </Box>
+            )
+            : (
+              <Box>
+                <MenuItem onClick={() => {
+                  setLocation('/account')
+                }}>
+                  <ListItemIcon>
+                    <Person fontSize='small' />
+                  </ListItemIcon>
+                  Account
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={handleLogout}>
+                  <ListItemIcon>
+                    <Logout fontSize='small' />
+                  </ListItemIcon>
+                  Logout
+                </MenuItem>
+              </Box>
+            )
+          }
+
         </SignUpMenu>
       </Toolbar>
     </AppBar>

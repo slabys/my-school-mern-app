@@ -14,9 +14,8 @@ import { ErrorMessage, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { Copyright } from 'Application';
 import { loginUser } from 'actions/signUp';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'wouter';
-import { IRootSelector } from 'reducers';
 
 interface LoginValues {
   email: string,
@@ -29,18 +28,15 @@ const LoginInitValues: LoginValues = {
 };
 
 export const Login: React.FunctionComponent = () => {
-  const login = useSelector((store: IRootSelector) => store.signUp);
   const [, setLocation] = useLocation();
   const dispatch = useDispatch();
   const handleSubmit = (values: LoginValues) => {
     dispatch(loginUser(values, setLocation));
-    console.log(login)
   };
 
   const validationSchema = () => Yup.object().shape({
-    email: Yup.string()
-      .email('Enter a valid email')
-      .required('Email is required'),
+    email: Yup.string().trim()
+      .required('Email or Nickname is required'),
     password: Yup.string()
       .required('Password is required'),
   });
@@ -69,15 +65,16 @@ export const Login: React.FunctionComponent = () => {
         >
           {({ values, handleChange }) => (
             <Form style={{ width: '100%' }}>
-              <Box>
+              <Grid>
                 <TextField
                   margin='normal'
                   fullWidth
                   id='email'
                   name='email'
-                  label='Email Address'
+                  label='Email Address or Nickname'
                   autoComplete='email'
                   autoFocus
+
                   value={values.email}
                   onChange={handleChange}
                 />
@@ -88,7 +85,7 @@ export const Login: React.FunctionComponent = () => {
                   </Typography>
                   }
                 />
-              </Box>
+              </Grid>
               <TextField
                 margin='normal'
                 fullWidth
