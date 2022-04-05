@@ -21,7 +21,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import { logoutUser } from 'actions/signUp';
-
+import { Link } from 'wouter';
 
 const SignUpMenu = styled((props: MenuProps) => (
   <Menu
@@ -61,7 +61,7 @@ export const Navbar: React.FunctionComponent<{
   }, [location]);
 
   const handleLogout = () => {
-    dispatch(logoutUser(setUser, setLocation))
+    dispatch(logoutUser(setUser, setLocation));
 
   };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -91,9 +91,11 @@ export const Navbar: React.FunctionComponent<{
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-          BizarreBazaar
-        </Typography>
+        <Link to='/'>
+          <Typography variant='h6' component='div' sx={{ cursor: 'pointer', flexGrow: 1 }}>
+            BizarreBazaar
+          </Typography>
+        </Link>
         <IconButton onClick={handleClick}>
           <Avatar alt={user?.result?.nickname} {...stringAvatar()} />
         </IconButton>
@@ -107,12 +109,12 @@ export const Navbar: React.FunctionComponent<{
             ? (
               <Box>
                 <MenuItem onClick={() => {
-                  setLocation('/login')
+                  setLocation('/login');
                 }}>
                   <LoginOutlined sx={{ marginRight: 1 }} /> Login
                 </MenuItem>
                 <MenuItem onClick={() => {
-                  setLocation('/register')
+                  setLocation('/register');
                 }}>
                   <AppRegistrationOutlined sx={{ marginRight: 1 }} /> Register
                 </MenuItem>
@@ -122,7 +124,7 @@ export const Navbar: React.FunctionComponent<{
             : (
               <Box>
                 <MenuItem onClick={() => {
-                  setLocation('/account')
+                  setLocation('/account');
                 }}>
                   <ListItemIcon>
                     <Person fontSize='small' />

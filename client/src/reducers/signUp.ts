@@ -1,7 +1,9 @@
 export default (state = { authData: null }, action: any) => {
   switch (action.type) {
     case 'GET_USER':
-      return action.payload;
+      return { ...state, authData: action.payload };
+    case 'UPDATE':
+        return { ...state, authData: action.data };
     case 'AUTH':
       localStorage.setItem('profile', JSON.stringify({ ...action.data }));
       return { ...state, authData: action.data, loading: false, errors: null };

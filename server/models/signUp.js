@@ -20,6 +20,15 @@ const signUpSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  phoneNumber: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  street: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: new Date(),

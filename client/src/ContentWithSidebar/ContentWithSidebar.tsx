@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Divider, Grid, Paper, styled, Typography } from '@mui/material';
 
 const Column = styled(Paper)(({ theme }) => ({
@@ -9,21 +9,20 @@ const Column = styled(Paper)(({ theme }) => ({
 }));
 
 export const ContentWithSidebar: React.FunctionComponent<{
-  menu: React.ReactNode,
-  content: React.ReactNode
-}> = ({ menu, content }) => {
+  children: ReactElement
+}> = ({ children }) => {
   return (
     <>
       <Grid item xs={12} sm={4} md={3} textAlign='center'>
         <Column>
           <Typography variant='h6'>Menu</Typography>
           <Divider/>
-          {menu}
+          {children.props.children[0]}
         </Column>
       </Grid>
       <Grid item xs={12} sm={8} md={9}>
         <Column>
-          {content}
+          {children.props.children[1]}
         </Column>
       </Grid>
     </>

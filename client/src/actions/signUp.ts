@@ -10,6 +10,17 @@ export const getLoggedInUser = (userId: string) => async (dispatch: Dispatch<any
   }
 };
 
+export const updateUserInfo = (userId: string, userInfo: any) => async (dispatch: Dispatch<any>) => {
+  try {
+    const { data } = await api.updateUserInfo(userId, userInfo);
+    console.log('action update')
+    dispatch({ type: 'UPDATE', payload: data });
+    console.log('action update done')
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const loginUser = (user: any, setLocation: any) => async (dispatch: Dispatch<any>) => {
   try {
     const { data } = await api.loginUser(user);

@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { SignUp } from '../models/signUp.js';
+import mongoose from 'mongoose';
 
 const secret = 'school';
 
@@ -12,6 +13,19 @@ export const getUserInfo = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
+}
+
+export const updateUserInfo = async (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName, city, street, phoneNumber } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
+
+  const updatedPost = { firstName, lastName, city, street, phoneNumber, _id: id };
+
+  await SignUp.findByIdAndUpdate(id, updatedPost, { new: true });
+
+  res.json(updatedPost);
 }
 
 export const postLoginUser = async (req, res) => {
