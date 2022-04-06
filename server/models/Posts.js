@@ -10,7 +10,7 @@ const postSchema = mongoose.Schema({
     phoneNumber: String,
   },
   categories: [String],
-  selectedFile: String,
+  images: [String],
   createdAt: {
     type: Date,
     default: new Date(),

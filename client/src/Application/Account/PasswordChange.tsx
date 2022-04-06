@@ -1,10 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUserPassword } from 'actions/signUp';
 import * as Yup from 'yup';
 import { ErrorMessage, Form, Formik } from 'formik';
 import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useLocation } from 'wouter';
+import { IRootSelector } from 'reducers';
 
 interface PasswordChangeValues {
   currentPassword: string,
@@ -20,10 +21,13 @@ const PasswordChangeInit: PasswordChangeValues = {
 
 export const PasswordChange: React.FunctionComponent = () => {
   const [, setLocation] = useLocation();
+  const { authData } = useSelector((store: IRootSelector) => store.signUp);
   const dispatch = useDispatch();
 
+  console.log(authData)
+
   const handleSubmit = (values: PasswordChangeValues) => {
-    dispatch(updateUserPassword(JSON.parse(localStorage.getItem('profile') as string)?.result._id, {
+    dispatch(updateUserPassword(authData.result.id, {
           currentPassword: values.currentPassword,
           newPassword: values.newPassword,
         },

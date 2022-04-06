@@ -53,10 +53,9 @@ export const registerUser = (user: any, setLocation: any) => async (dispatch: Di
   }
 };
 
-export const logoutUser = (setUser: any, setLocation: any) => async (dispatch: Dispatch<any>) => {
+export const logoutUser = (setLocation: any) => async (dispatch: Dispatch<any>) => {
   try {
     dispatch({ type: 'LOGOUT' });
-    setUser(null);
     setLocation('/');
   } catch (error: any) {
     alert(error.response.data.message);

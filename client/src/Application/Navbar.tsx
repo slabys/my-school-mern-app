@@ -11,17 +11,18 @@ import {
   Typography,
 } from '@mui/material';
 import {
+  AddBox,
   AppRegistrationOutlined,
   LoginOutlined,
   Logout,
-  Menu as MenuIcon,
   Person,
 } from '@mui/icons-material';
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import decode from 'jwt-decode';
 import { logoutUser } from 'actions/signUp';
 import { Link } from 'wouter';
+import { IRootSelector, UserData } from '~/reducers';
 
 const SignUpMenu = styled((props: MenuProps) => (
   <Menu
@@ -42,10 +43,15 @@ export const Navbar: React.FunctionComponent<{
   location: string,
   setLocation: (value: string) => void;
 }> = ({ location, setLocation }) => {
-  const [user, setUser] = React.useState((JSON.parse(localStorage.getItem('profile') as string) ?? null));
+  const { authData } = useSelector((store: IRootSelector) => store.signUp);
+  const [user, setUser] = React.useState<UserData | null>(null); //((JSON.parse(localStorage.getItem('profile') as string) ?? null))
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    setUser(authData)
+  },[dispatch, user, authData])
 
   React.useEffect(() => {
     const token = user?.token;
@@ -61,7 +67,8 @@ export const Navbar: React.FunctionComponent<{
   }, [location]);
 
   const handleLogout = () => {
-    dispatch(logoutUser(setUser, setLocation));
+    dispatch(logoutUser(setLocation));
+    setUser(null);
   };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -72,31 +79,31 @@ export const Navbar: React.FunctionComponent<{
 
   const stringAvatar = () => {
     return {
-      children: ((user?.result?.firstName && user?.result?.lastName)
-        ? `${user?.result?.firstName.charAt(0)}${user?.result?.lastName.charAt(0)}`
-        : user?.result?.nickname.charAt(0))?.toUpperCase(),
+      children: ((user?.result.firstName && user?.result.lastName)
+        ? `${user?.result.firstName.charAt(0)}${user?.result.lastName.charAt(0)}`
+        : user?.result.nickname.charAt(0))?.toUpperCase(),
     };
   };
 
   return (
     <AppBar position='sticky'>
       <Toolbar>
-        <IconButton
-          size='large'
-          edge='start'
-          color='inherit'
-          aria-label='menu'
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
+        {/*<IconButton*/}
+        {/*  size='large'*/}
+        {/*  edge='start'*/}
+        {/*  color='inherit'*/}
+        {/*  aria-label='menu'*/}
+        {/*  sx={{ mr: 2 }}*/}
+        {/*>*/}
+        {/*  <MenuIcon />*/}
+        {/*</IconButton>*/}
         <Link to='/'>
           <Typography variant='h6' component='div' sx={{ cursor: 'pointer', flexGrow: 1 }}>
             BizarreBazaar
           </Typography>
         </Link>
         <IconButton onClick={handleClick}>
-          <Avatar alt={user?.result?.nickname} {...stringAvatar()} />
+          <Avatar alt={user?.result.nickname} {...stringAvatar()} />
         </IconButton>
         <SignUpMenu
           open={open}
@@ -123,6 +130,15 @@ export const Navbar: React.FunctionComponent<{
             : (
               <Box>
                 <MenuItem onClick={() => {
+                  // TODO openCreatePostModal();
+                }}>
+                  <ListItemIcon>
+                    <AddBox fontSize='small' />
+                  </ListItemIcon>
+                  Add post
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={() => {
                   setLocation('/account');
                 }}>
                   <ListItemIcon>
@@ -130,7 +146,6 @@ export const Navbar: React.FunctionComponent<{
                   </ListItemIcon>
                   Account
                 </MenuItem>
-                <Divider />
                 <MenuItem onClick={handleLogout}>
                   <ListItemIcon>
                     <Logout fontSize='small' />

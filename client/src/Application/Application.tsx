@@ -9,14 +9,13 @@ import {
 } from '@mui/material';
 import { Navbar } from 'Application/Navbar';
 import { useDispatch } from 'react-redux';
-import { getPosts, getLoggedInUser } from 'actions';
+import { getPosts } from 'actions';
 
 export const Application: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getPosts());
-    if (localStorage.getItem('profile')) dispatch(getLoggedInUser(JSON.parse(localStorage.getItem('profile') || '').result._id));
   }, [dispatch]);
 
   return <ThemeProvider theme={darkTheme}>
