@@ -19,11 +19,32 @@ export const updateUserInfo = async (req, res) => {
   const { id } = req.params;
   const { firstName, lastName, city, street, phoneNumber } = req.body;
 
+  console.log(id)
+
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
 
   const updatedPost = { firstName, lastName, city, street, phoneNumber, _id: id };
 
   await SignUp.findByIdAndUpdate(id, updatedPost, { new: true });
+
+  res.json(updatedPost);
+}
+
+export const updateUserPassword = async (req, res) => {
+  const { id } = req.params;
+  const { currentPassword, newPassword } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
+
+  const user = await SignUp.findOne({ id });
+
+  const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+  if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid credentials' });
+
+  const hashedPassword = await bcrypt.hash(newPassword, 12);
+  const updatedPost = {password: hashedPassword, _id: id };
+
+  await SignUp.findByIdAndUpdate(id, updatedPost);
 
   res.json(updatedPost);
 }

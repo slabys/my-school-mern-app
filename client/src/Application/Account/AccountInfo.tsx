@@ -31,7 +31,11 @@ const accountValuesInit: AccountValues = {
 export const AccountInfo: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
-  const userInfoData = { ...accountValuesInit, ...authData };
+  const data = authData?.result
+  const userInfoData = { ...accountValuesInit, ...data };
+
+  console.log(authData)
+  console.log(data)
 
   const handleSubmit = (values: AccountValues) => {
     dispatch(updateUserInfo(values._id, { ...values }));

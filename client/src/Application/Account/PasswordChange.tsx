@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { IRootSelector } from 'reducers';
-// import { updateUserPassword } from 'actions/signUp';
+import { useDispatch } from 'react-redux';
+import { updateUserPassword } from 'actions/signUp';
 import * as Yup from 'yup';
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import { useLocation } from 'wouter';
 
 interface PasswordChangeValues {
   currentPassword: string,
@@ -19,28 +19,23 @@ const PasswordChangeInit: PasswordChangeValues = {
 };
 
 export const PasswordChange: React.FunctionComponent = () => {
-
-  // const dispatch = useDispatch();
-  const userInfo = useSelector((store: IRootSelector) => store.signUp);
-
-  console.log(userInfo)
+  const [, setLocation] = useLocation();
+  const dispatch = useDispatch();
 
   const handleSubmit = (values: PasswordChangeValues) => {
-    console.log('send')
-    console.log(userInfo._id, {
-      currentPassword: values.currentPassword,
-      newPassword: values.newPassword,
-    })
-    // dispatch(updateUserPassword(userInfo._id, {
-    //   currentPassword: values.currentPassword,
-    //   newPassword: values.newPassword,
-    // }));
+    dispatch(updateUserPassword(JSON.parse(localStorage.getItem('profile') as string)?.result._id, {
+          currentPassword: values.currentPassword,
+          newPassword: values.newPassword,
+        },
+        setLocation,
+      ),
+    );
   };
 
   const validationSchema = () => Yup.object({
     currentPassword: Yup.string().required('Password is required'),
     newPassword: Yup.string().min(4).required('New password is required'),
-    repeatPassword: Yup.string().min(4).required('Repeat password').when('password', {
+    repeatPassword: Yup.string().min(4).required('Repeat password').when('newPassword', {
       is: (value: string) => (value && value.length > 0 ? true : false),
       then: Yup.string().oneOf(
         [Yup.ref('newPassword')],
@@ -67,10 +62,13 @@ export const PasswordChange: React.FunctionComponent = () => {
                   fullWidth
                   value={values.currentPassword}
                   onChange={handleChange}
+                  type='password'
                   id='currentPassword'
                   name='currentPassword'
                   label={'Current Password'}
                 />
+                <ErrorMessage name='currentPassword'
+                              render={error => <Typography sx={{ color: 'red' }}>{error}</Typography>} />
               </Grid>
               <Grid item display='flex' alignItems='center' xs={12} sm={12} md={4}>
                 <Typography paragraph={false}>New Password:</Typography>
@@ -80,10 +78,13 @@ export const PasswordChange: React.FunctionComponent = () => {
                   fullWidth
                   value={values.newPassword}
                   onChange={handleChange}
+                  type='password'
                   id='newPassword'
                   name='newPassword'
                   label={'New Password'}
                 />
+                <ErrorMessage name='newPassword'
+                              render={error => <Typography sx={{ color: 'red' }}>{error}</Typography>} />
               </Grid>
               <Grid item display='flex' alignItems='center' xs={12} sm={12} md={4}>
                 <Typography paragraph={false}>Repeat new password:</Typography>
@@ -93,10 +94,13 @@ export const PasswordChange: React.FunctionComponent = () => {
                   fullWidth
                   value={values.repeatPassword}
                   onChange={handleChange}
+                  type='password'
                   id='repeatPassword'
                   name='repeatPassword'
                   label={'Repeat password'}
                 />
+                <ErrorMessage name='repeatPassword'
+                              render={error => <Typography sx={{ color: 'red' }}>{error}</Typography>} />
               </Grid>
             </Grid>
           </Stack>

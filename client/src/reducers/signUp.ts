@@ -1,7 +1,7 @@
 export default (state = { authData: null }, action: any) => {
   switch (action.type) {
     case 'GET_USER':
-      return { ...state, authData: action.payload };
+      return { ...state, authData: action.data };
     case 'UPDATE':
         return { ...state, authData: action.data };
     case 'AUTH':

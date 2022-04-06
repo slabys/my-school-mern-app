@@ -62,7 +62,6 @@ export const Navbar: React.FunctionComponent<{
 
   const handleLogout = () => {
     dispatch(logoutUser(setUser, setLocation));
-
   };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
