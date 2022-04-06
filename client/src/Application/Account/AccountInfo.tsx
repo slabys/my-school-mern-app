@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootSelector } from 'reducers';
-import { updateUserInfo } from 'actions/signUp';
+import { getLoggedInUser, updateUserInfo } from 'actions/signUp';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
@@ -31,15 +31,15 @@ const accountValuesInit: AccountValues = {
 export const AccountInfo: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
-  const data = authData?.result
-  const userInfoData = { ...accountValuesInit, ...data };
-
-  console.log(authData)
-  console.log(data)
+  const userInfoData = { ...accountValuesInit, ...authData };
 
   const handleSubmit = (values: AccountValues) => {
     dispatch(updateUserInfo(values._id, { ...values }));
   };
+
+  React.useEffect(() => {
+    if (localStorage.getItem('profile')) dispatch(getLoggedInUser(JSON.parse(localStorage.getItem('profile') || '').result._id));
+  }, [dispatch, handleSubmit]);
 
   const validationSchema = () => Yup.object({
     firstName: Yup.string().trim(),

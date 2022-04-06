@@ -10,6 +10,7 @@ mongodb\bin\mongod.exe --dbpath=mongodb-data
 
 ###Spuštění BE
 ```shell
+cd server
 npm run server
 ```
 

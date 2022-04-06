@@ -42,7 +42,7 @@ export const Navbar: React.FunctionComponent<{
   location: string,
   setLocation: (value: string) => void;
 }> = ({ location, setLocation }) => {
-  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('profile') as string));
+  const [user, setUser] = React.useState((JSON.parse(localStorage.getItem('profile') as string) ?? null));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();

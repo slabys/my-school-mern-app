@@ -15,8 +15,8 @@ export const Application: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(getPosts())
-    dispatch(getLoggedInUser(JSON.parse(localStorage.getItem('profile') as string)?.result._id))
+    dispatch(getPosts());
+    if (localStorage.getItem('profile')) dispatch(getLoggedInUser(JSON.parse(localStorage.getItem('profile') || '').result._id));
   }, [dispatch]);
 
   return <ThemeProvider theme={darkTheme}>
