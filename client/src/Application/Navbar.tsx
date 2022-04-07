@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import decode from 'jwt-decode';
 import { logoutUser } from 'actions/signUp';
 import { Link } from 'wouter';
-import { IRootSelector, UserData } from '~/reducers';
+import { IRootSelector, UserData } from 'reducers';
 
 const SignUpMenu = styled((props: MenuProps) => (
   <Menu
@@ -51,9 +51,6 @@ export const Navbar: React.FunctionComponent<{
 
   React.useEffect(() => {
     setUser(authData)
-  },[dispatch, user, authData])
-
-  React.useEffect(() => {
     const token = user?.token;
 
     if (token) {
