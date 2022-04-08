@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { getCookie } from 'utils/utils';
 
 const API = axios.create({baseURL: 'http://localhost:5000'});
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem('profile') && req.headers !== undefined) {
-    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile') as string).token }`;
+  if (getCookie('profile') && req.headers !== undefined) {
+    req.headers.Authorization = `Bearer ${JSON.parse(getCookie('profile') as string).token }`;
   }
   return req;
 });

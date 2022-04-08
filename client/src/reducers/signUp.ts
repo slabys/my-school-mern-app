@@ -1,3 +1,5 @@
+import { destroyCookie, setCookie } from 'utils/utils';
+
 export default (state = { authData: null }, action: any) => {
   switch (action.type) {
     case 'GET_USER':
@@ -5,10 +7,10 @@ export default (state = { authData: null }, action: any) => {
     case 'UPDATE':
         return { ...state, authData: action.data };
     case 'AUTH':
-      localStorage.setItem('profile', JSON.stringify({ ...action.data }));
+      setCookie('profile', JSON.stringify({ ...action.data }));
       return { ...state, authData: action.data, loading: false, errors: null };
     case 'LOGOUT':
-      localStorage.clear();
+      destroyCookie('profile');
       return { ...state, authData: null, loading: false, errors: null };
     case 'ERROR':
       return { ...state, authData: null, loading: false, errors: action.payload };

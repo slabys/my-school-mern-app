@@ -23,6 +23,7 @@ import decode from 'jwt-decode';
 import { logoutUser } from 'actions/signUp';
 import { Link } from 'wouter';
 import { IRootSelector, UserData } from 'reducers';
+import { getCookie } from 'utils/utils';
 
 const SignUpMenu = styled((props: MenuProps) => (
   <Menu
@@ -44,7 +45,7 @@ export const Navbar: React.FunctionComponent<{
   setLocation: (value: string) => void;
 }> = ({ location, setLocation }) => {
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
-  const [user, setUser] = React.useState<UserData | null>(null); //((JSON.parse(localStorage.getItem('profile') as string) ?? null))
+  const [user, setUser] = React.useState<UserData | null>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ export const Navbar: React.FunctionComponent<{
         handleLogout();
       }
     }
-    setUser(JSON.parse(localStorage.getItem('profile') as string));
+    setUser(JSON.parse(getCookie('profile') as string));
   }, [location]);
 
   const handleLogout = () => {

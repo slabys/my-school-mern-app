@@ -1,5 +1,6 @@
 import * as api from 'api';
 import { Dispatch } from 'react';
+import { destroyCookie } from 'utils/utils';
 
 export const getLoggedInUser = (userId: string) => async (dispatch: Dispatch<any>) => {
   try {
@@ -24,7 +25,7 @@ export const updateUserPassword = (userId: string, userInfo: any, setLocation: a
   try {
     const { data } = await api.updateUserPassword(userId, userInfo);
     dispatch({ type: 'UPDATE', payload: data });
-    localStorage.clear();
+    destroyCookie('profile')
     setLocation('/');
     alert('Submitted successfully! Please log in.');
   } catch (error: any) {

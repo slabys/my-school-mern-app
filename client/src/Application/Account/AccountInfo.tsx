@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootSelector } from 'reducers';
-import { updateUserInfo } from 'actions/signUp';
+import { getLoggedInUser, updateUserInfo } from 'actions/signUp';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import { getCookie } from 'utils/utils';
 
 interface AccountValues {
   _id: string,
@@ -31,12 +32,16 @@ const accountValuesInit: AccountValues = {
 export const AccountInfo: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
-  const result = authData?.result;
+  const result = authData;
   const userInfoData = { ...accountValuesInit, ...result };
 
   const handleSubmit = (values: AccountValues) => {
     dispatch(updateUserInfo(values._id, { ...values }));
   };
+
+  React.useEffect(() => {
+    dispatch(getLoggedInUser(JSON.parse(getCookie('profile') ?? '').result._id))
+  },[])
 
   const validationSchema = () => Yup.object({
     firstName: Yup.string().trim(),
@@ -51,6 +56,7 @@ export const AccountInfo: React.FunctionComponent = () => {
       initialValues={userInfoData}
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
+      enableReinitialize={true}
     >
       {({ values, handleChange }) => (
         <Form style={{ width: '100%' }}>
