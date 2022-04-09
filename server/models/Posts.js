@@ -3,11 +3,12 @@ import mongoose from 'mongoose';
 const postSchema = mongoose.Schema({
   title: String,
   description: String,
-  creator: {
-    id: String,
-    nickname: String,
-    email: String,
-    phoneNumber: String,
+  prizeType: String,
+  prize: String,
+  creatorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'SignUp'
   },
   categories: [String],
   images: [String],

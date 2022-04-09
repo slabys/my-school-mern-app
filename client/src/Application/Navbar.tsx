@@ -19,8 +19,7 @@ import {
 } from '@mui/icons-material';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import decode from 'jwt-decode';
-import { logoutUser } from 'actions/signUp';
+import { getLoggedInUser, logoutUser } from 'actions/signUp';
 import { Link } from 'wouter';
 import { IRootSelector, UserData } from 'reducers';
 import { getCookie } from 'utils/utils';
@@ -41,28 +40,18 @@ const SignUpMenu = styled((props: MenuProps) => (
 }));
 
 export const Navbar: React.FunctionComponent<{
-  location: string,
   setLocation: (value: string) => void;
-}> = ({ location, setLocation }) => {
+}> = ({ setLocation }) => {
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
-  const [user, setUser] = React.useState<UserData | null>(null);
+  const [user, setUser] = React.useState<UserData | null>(authData);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    setUser(authData)
-    const token = user?.token;
-
-    if (token) {
-      const decodedToken: any = decode(token);
-
-      if (decodedToken.exp * 1000 < new Date().getTime()) {
-        handleLogout();
-      }
-    }
-    setUser(JSON.parse(getCookie('profile') as string));
-  }, [location]);
+    if (authData) setUser(authData);
+    if(getCookie('profile')) dispatch(getLoggedInUser(JSON.parse(getCookie('profile') as string).result._id));
+  }, [authData]);
 
   const handleLogout = () => {
     dispatch(logoutUser(setLocation));
@@ -75,33 +64,18 @@ export const Navbar: React.FunctionComponent<{
     setAnchorEl(null);
   };
 
-  const stringAvatar = () => {
-    return {
-      children: ((user?.result.firstName && user?.result.lastName)
-        ? `${user?.result.firstName.charAt(0)}${user?.result.lastName.charAt(0)}`
-        : user?.result.nickname.charAt(0))?.toUpperCase(),
-    };
-  };
-
   return (
     <AppBar position='sticky'>
       <Toolbar>
-        {/*<IconButton*/}
-        {/*  size='large'*/}
-        {/*  edge='start'*/}
-        {/*  color='inherit'*/}
-        {/*  aria-label='menu'*/}
-        {/*  sx={{ mr: 2 }}*/}
-        {/*>*/}
-        {/*  <MenuIcon />*/}
-        {/*</IconButton>*/}
         <Link to='/'>
           <Typography variant='h6' component='div' sx={{ cursor: 'pointer', flexGrow: 1 }}>
             BizarreBazaar
           </Typography>
         </Link>
         <IconButton onClick={handleClick}>
-          <Avatar alt={user?.result.nickname} {...stringAvatar()} />
+          <Avatar>
+            {user !== null ? user?.result.nickname.charAt(0).toUpperCase() ?? user?.result.email.charAt(0).toUpperCase() : <Avatar/>}
+          </Avatar>
         </IconButton>
         <SignUpMenu
           open={open}

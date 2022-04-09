@@ -20,11 +20,9 @@ const PasswordChangeInit: PasswordChangeValues = {
 };
 
 export const PasswordChange: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
   const [, setLocation] = useLocation();
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
-  const dispatch = useDispatch();
-
-  console.log(authData)
 
   const handleSubmit = (values: PasswordChangeValues) => {
     dispatch(updateUserPassword(authData.result.id, {

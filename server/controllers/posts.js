@@ -2,7 +2,7 @@ import Posts from '../models/Posts.js';
 
 export const getPosts = async (req, res) => {
   try {
-    const postMessages = await Posts.find();
+    const postMessages = await Posts.find().populate('creatorId');
     res.status(200).json(postMessages);
   } catch (error) {
     res.status(404).json({ message: error.message });

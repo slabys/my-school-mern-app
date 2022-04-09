@@ -8,8 +8,11 @@ const secret = 'school';
 export const getUserInfo = async (req, res) => {
   const { id } = req.params;
   try {
-    const post = await SignUp.findById(id);
-    res.status(200).json(post);
+    const user = await SignUp.findById(id);
+
+    const token = jwt.sign({ email: user.email, id: user._id }, secret, { expiresIn: '1h' });
+
+    res.status(200).json({ result: user, token });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

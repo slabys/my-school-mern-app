@@ -13,10 +13,7 @@ import { getPosts } from 'actions';
 
 export const Application: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+  dispatch(getPosts());
 
   return <ThemeProvider theme={darkTheme}>
     <CssBaseline />
@@ -47,7 +44,7 @@ const Layout: React.FunctionComponent<{
           height: 64,
         },
       })} boxShadow={darkTheme.shadows[8]}>
-        <Navbar location={location} setLocation={setLocation} />
+        <Navbar setLocation={setLocation} />
       </Box>
       <Box sx={theme => ({
           py: 4,

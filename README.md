@@ -21,11 +21,5 @@ cd client
 npm start
 ```
 
-###Spuštění FE & BE dohromady
-```shell
-npm start
-```
-
-
 [YouTube tutorial](https://www.youtube.com/watch?v=ngc9gnGgUdA).
 

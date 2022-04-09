@@ -1,11 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootSelector } from 'reducers';
-import { getLoggedInUser, updateUserInfo } from 'actions/signUp';
+import { IRootSelector, UserDataResult } from 'reducers';
+import { updateUserInfo } from 'actions/signUp';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
-import { getCookie } from 'utils/utils';
 
 interface AccountValues {
   _id: string,
@@ -31,17 +30,17 @@ const accountValuesInit: AccountValues = {
 
 export const AccountInfo: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = React.useState<UserDataResult | null>(null);
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
-  const result = authData;
-  const userInfoData = { ...accountValuesInit, ...result };
+  const userInfoData = { ...accountValuesInit, ...user };
 
   const handleSubmit = (values: AccountValues) => {
-    dispatch(updateUserInfo(values._id, { ...values }));
+    dispatch(updateUserInfo(values._id, { ...user }));
   };
 
   React.useEffect(() => {
-    dispatch(getLoggedInUser(JSON.parse(getCookie('profile') ?? '').result._id))
-  },[])
+    if(authData) setUser(authData.result)
+  },[authData])
 
   const validationSchema = () => Yup.object({
     firstName: Yup.string().trim(),
