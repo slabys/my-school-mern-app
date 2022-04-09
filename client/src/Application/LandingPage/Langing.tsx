@@ -22,8 +22,6 @@ export const Landing: React.FunctionComponent = () => {
   const params = useSearchParams();
   const postId = params.get('post');
 
-  console.log(postId);
-  console.log(posts);
   const postItem = React.useMemo(() => posts.find((item) => item._id === postId) ?? null, [postId]);
 
   if (posts === null) {
@@ -45,7 +43,7 @@ export const Landing: React.FunctionComponent = () => {
         <Copyright mt={6} />
         {
           postItem !== null
-            ? <PostModal />
+            ? <PostModal postItem={postItem}/>
             : null
         }
       </Box>

@@ -13,13 +13,15 @@ import { red } from '@mui/material/colors';
 import { Launch } from '@mui/icons-material';
 import image from 'images/image.jpg';
 import { PostData } from 'reducers';
+import { formatDate } from 'utils/utils';
 
-export const PostCard: React.FunctionComponent<{ post: PostData, PostRedirect: React.FunctionComponent<{ children: React.ReactElement<'a'>; postId: string }>; }> = ({ post, PostRedirect }) => {
-  const postDate = new Intl.DateTimeFormat('en-EN', {
-    year: 'numeric',
-    month: 'long',
-    day: '2-digit',
-  }).format(new Date(post.createdAt));
+export const PostCard: React.FunctionComponent<{
+  post: PostData, PostRedirect: React.FunctionComponent<{
+    children: React.ReactElement<'a'>;
+    postId: string
+  }>;
+}> = ({ post, PostRedirect }) => {
+  const postDate = formatDate(new Date(post.createdAt));
 
   return (
     <Card>

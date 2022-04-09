@@ -21,6 +21,9 @@ export interface UserDataResult {
   firstName: string,
   lastName: string,
   nickname: string,
+  city: string,
+  street: string,
+  phoneNumber: string,
 }
 
 export interface PostData {

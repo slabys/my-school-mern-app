@@ -22,8 +22,6 @@ export const updateUserInfo = async (req, res) => {
   const { id } = req.params;
   const { firstName, lastName, city, street, phoneNumber } = req.body;
 
-  console.log(id)
-
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
 
   const updatedPost = { firstName, lastName, city, street, phoneNumber, _id: id };

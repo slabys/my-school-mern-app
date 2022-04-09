@@ -20,7 +20,7 @@ import {
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLoggedInUser, logoutUser } from 'actions/signUp';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { IRootSelector, UserData } from 'reducers';
 import { getCookie } from 'utils/utils';
 
@@ -39,9 +39,8 @@ const SignUpMenu = styled((props: MenuProps) => (
   },
 }));
 
-export const Navbar: React.FunctionComponent<{
-  setLocation: (value: string) => void;
-}> = ({ setLocation }) => {
+export const Navbar: React.FunctionComponent = () => {
+  const [location, setLocation] = useLocation();
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
   const [user, setUser] = React.useState<UserData | null>(authData);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -49,13 +48,14 @@ export const Navbar: React.FunctionComponent<{
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    if (getCookie('profile')) dispatch(getLoggedInUser(JSON.parse(getCookie('profile') as string).result._id));
     if (authData) setUser(authData);
-    if(getCookie('profile')) dispatch(getLoggedInUser(JSON.parse(getCookie('profile') as string).result._id));
-  }, [authData]);
+  }, [authData, location]);
 
   const handleLogout = () => {
-    dispatch(logoutUser(setLocation));
+    dispatch(logoutUser());
     setUser(null);
+    setLocation('/');
   };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -74,7 +74,8 @@ export const Navbar: React.FunctionComponent<{
         </Link>
         <IconButton onClick={handleClick}>
           <Avatar>
-            {user !== null ? user?.result.nickname.charAt(0).toUpperCase() ?? user?.result.email.charAt(0).toUpperCase() : <Avatar/>}
+            {user !== null ? user?.result.nickname.charAt(0).toUpperCase() ?? user?.result.email.charAt(0).toUpperCase() :
+              <Avatar />}
           </Avatar>
         </IconButton>
         <SignUpMenu

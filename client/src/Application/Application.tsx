@@ -44,7 +44,7 @@ const Layout: React.FunctionComponent<{
           height: 64,
         },
       })} boxShadow={darkTheme.shadows[8]}>
-        <Navbar setLocation={setLocation} />
+        <Navbar />
       </Box>
       <Box sx={theme => ({
           py: 4,
