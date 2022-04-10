@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Avatar,
+  Avatar, Box,
   Card,
   CardActions,
   CardContent,
@@ -10,18 +10,27 @@ import {
   Typography,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
-import { Launch } from '@mui/icons-material';
+import { Delete, Launch } from '@mui/icons-material';
 import image from 'images/image.jpg';
 import { PostData } from 'reducers';
 import { formatDate } from 'utils/utils';
 
 export const PostCard: React.FunctionComponent<{
-  post: PostData, PostRedirect: React.FunctionComponent<{
+  owner?: boolean,
+  post: PostData,
+  PostRedirect: React.FunctionComponent<{
     children: React.ReactElement<'a'>;
     postId: string
   }>;
-}> = ({ post, PostRedirect }) => {
+  onDelete?: (value: string) => void
+}> = ({ owner, post, PostRedirect, onDelete }) => {
   const postDate = formatDate(new Date(post.createdAt));
+
+  const handleDelete = React.useCallback((postId: string) => {
+    if (onDelete) {
+      onDelete(postId);
+    }
+  }, [post]);
 
   return (
     <Card>
@@ -47,12 +56,27 @@ export const PostCard: React.FunctionComponent<{
           {post.description}
         </Typography>
       </CardContent>
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
-        <PostRedirect postId={post._id}>
-          <IconButton>
-            <Launch />
-          </IconButton>
-        </PostRedirect>
+      <CardActions>
+        {owner
+          ? <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+            <IconButton color='error' onClick={() => {
+              handleDelete(post._id);
+            }}>
+              <Delete />
+            </IconButton>
+            <PostRedirect postId={post._id}>
+              <IconButton>
+                <Launch />
+              </IconButton>
+            </PostRedirect>
+          </Box>
+          : <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+            <PostRedirect postId={post._id}>
+              <IconButton>
+                <Launch />
+              </IconButton>
+            </PostRedirect>
+          </Box>}
       </CardActions>
     </Card>
   );

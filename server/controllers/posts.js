@@ -19,3 +19,13 @@ export const createPost = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Posts.deleteOne({ _id: id });
+    res.status(200).send();
+  } catch (e) {
+    res.status(500).send();
+  }
+};

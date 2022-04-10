@@ -12,17 +12,16 @@ import { useSearchParams } from 'Application/useSearchParams';
 import * as Wouter from 'wouter';
 
 export const Landing: React.FunctionComponent = () => {
-
-  const PostModalRoute: React.FunctionComponent<{ children: React.ReactElement<'a'>; postId: string }> = React.useCallback(
-    ({ postId, children }) => <Wouter.Link to={`?post=${postId}`} >{children}</Wouter.Link>,
-    [],
-  );
-
   const posts = useSelector((store: IRootSelector) => store.posts);
   const params = useSearchParams();
   const postId = params.get('post');
 
-  const postItem = React.useMemo(() => posts.find((item) => item._id === postId) ?? null, [postId]);
+  const postItem = React.useMemo(() => posts.find((item) => item._id === postId) ?? null, [postId, posts]);
+
+  const PostModalRoute: React.FunctionComponent<{ children: React.ReactElement<'a'>; postId: string }> = React.useCallback(
+    ({ postId, children }) => <Wouter.Link to={`?post=${postId}`}>{children}</Wouter.Link>,
+    [],
+  );
 
   if (posts === null) {
     return <CircularProgress />;
@@ -35,17 +34,18 @@ export const Landing: React.FunctionComponent = () => {
           {posts.map((post) => {
             return (
               <Grid key={post._id} item xs={12} sm={6} md={4}>
-                <PostCard post={post} PostRedirect={PostModalRoute} />
+                <PostCard post={post} PostRedirect={PostModalRoute}/>
               </Grid>
             );
           })}
         </Grid>
         <Copyright mt={6} />
-        {
-          postItem !== null
-            ? <PostModal postItem={postItem}/>
-            : null
-        }
+        {postItem !== null
+          ? <PostModal
+            postItem={postItem}
+            backlink='/'
+          />
+          : null}
       </Box>
     </Container>
   );

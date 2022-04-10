@@ -27,6 +27,7 @@ const RootRouter: React.FunctionComponent = () => {
   return (
     <Switch>
       <Route path={routes.AccountRoute.path} component={routes.AccountRoute.Target} />
+      <Route path={routes.MyPostsRoute.path} component={routes.MyPostsRoute.Target} />
       <Route path={routes.LandingRoute.path} component={routes.LandingRoute.Target} />
     </Switch>
   );

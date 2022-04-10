@@ -16,7 +16,7 @@ export interface UserData {
 }
 
 export interface UserDataResult {
-  id: string,
+  _id: string,
   email: string,
   firstName: string,
   lastName: string,

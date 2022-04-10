@@ -11,7 +11,6 @@ const postSchema = mongoose.Schema({
     ref: 'SignUp'
   },
   categories: [String],
-  images: [String],
   createdAt: {
     type: Date,
     default: new Date(),

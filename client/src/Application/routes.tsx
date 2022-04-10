@@ -1,6 +1,7 @@
 import React from 'react';
 import * as LandingPage from 'Application/LandingPage';
 import * as Account from 'Application/Account';
+import * as MyPosts from 'Application/Posts';
 
 export interface EmptyParams {}
 
@@ -53,3 +54,5 @@ export const LandingRoute = new Route<{ postId?: string; }, typeof LandingPage.L
 });
 
 export const AccountRoute = new Route<EmptyParams, typeof Account.Account>(Account.Account, '/account', () => '/account');
+
+export const MyPostsRoute = new Route<EmptyParams, typeof MyPosts.MyPostPage>(MyPosts.MyPostPage, '/myPosts', () => '/myPosts');

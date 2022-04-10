@@ -4,6 +4,8 @@ export default (state = [], action: any) => {
       return action.payload;
     case 'CREATE':
       return [...state, action.payload];
+    case 'DELETE':
+      return [...state, action.payload];
     default:
       return state;
 

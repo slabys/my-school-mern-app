@@ -11,15 +11,14 @@ import {
   Typography,
 } from '@mui/material';
 import {
-  AddBox,
-  AppRegistrationOutlined,
+  AppRegistrationOutlined, Article,
   LoginOutlined,
   Logout,
   Person,
 } from '@mui/icons-material';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLoggedInUser, logoutUser } from 'actions/signUp';
+import { logoutUser } from 'actions/signUp';
 import { Link, useLocation } from 'wouter';
 import { IRootSelector, UserData } from 'reducers';
 import { getCookie } from 'utils/utils';
@@ -47,10 +46,15 @@ export const Navbar: React.FunctionComponent = () => {
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
 
+  //TODO FIX (refreshing without end) if (user) dispatch(getLoggedInUser(user?.result._id));
+
   React.useEffect(() => {
-    if (getCookie('profile')) dispatch(getLoggedInUser(JSON.parse(getCookie('profile') as string).result._id));
-    if (authData) setUser(authData);
-  }, [authData, location]);
+    if (getCookie('profile')) {
+      setUser(JSON.parse(getCookie('profile') as string));
+    } else {
+      if (authData) setUser(authData);
+    }
+  }, [location]);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -103,12 +107,12 @@ export const Navbar: React.FunctionComponent = () => {
             : (
               <Box>
                 <MenuItem onClick={() => {
-                  // TODO openCreatePostModal();
+                  setLocation('/myPosts');
                 }}>
                   <ListItemIcon>
-                    <AddBox fontSize='small' />
+                    <Article fontSize='small' />
                   </ListItemIcon>
-                  Add post
+                  My Posts
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={() => {

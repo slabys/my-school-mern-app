@@ -18,16 +18,16 @@ import { PostData } from 'reducers';
 import image from 'images/image.jpg';
 import { formatDate } from 'utils/utils';
 
-export const PostModal: React.FunctionComponent<{ postItem: PostData }> = ({ postItem }) => {
+export const PostModal: React.FunctionComponent<{ postItem: PostData, backlink: string }> = ({ postItem, backlink }) => {
   const [, setLocation] = useLocation();
 
   return (
     <Dialog maxWidth='lg' fullWidth open scroll='body' onClose={() => {
-      setLocation('/');
+      setLocation(backlink);
     }}>
       <DialogTitle>
         <IconButton sx={{ position: 'absolute', top: '8px', right: '8px' }} onClick={() => {
-          setLocation('/');
+          setLocation(backlink);
         }}>
           <Close />
         </IconButton>
@@ -64,7 +64,7 @@ const ModalContent: React.FunctionComponent<{ post: PostData }> = ({ post }) => 
           <Typography variant='h5' paragraph={false}>Info about product:</Typography>
           <Box>
             {
-              post.prize && post.prize === 'FREE'
+              post.prize && post.prize === 'FREE' || post.prize === 'BUY'
                 ? <Typography>{post.prizeType}</Typography>
                 : <Typography>{post.prizeType}: {post.prize}</Typography>
             }

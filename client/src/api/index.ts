@@ -13,6 +13,7 @@ API.interceptors.request.use((req) => {
 //Posts
 export const fetchPosts = () => API.get('/posts');
 export const createPost = (newPost: any) => API.post('/posts', newPost);
+export const deletePost = (postId: string) => API.delete(`/posts/${postId}`);
 
 //SignUp
 export const getLoggedInUser = (userId: any) => API.get(`/signup/account/${userId}`);
