@@ -1,16 +1,17 @@
 import { Backlink } from 'Logic/Backlink';
-import { Box, Container, Grid, Tab, Tabs, Typography } from '@mui/material';
+import { Alert, Box, Container, Grid, Snackbar, Tab, Tabs, Typography } from '@mui/material';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IRootSelector } from 'reducers';
 import { PostCard } from 'Posts';
 import * as Wouter from 'wouter';
 import { useSearchParams } from 'Application/useSearchParams';
 import { PostModal, CreateNewPost } from 'Application/Posts';
-import { deletePost } from 'actions/posts';
+import { deletePost, getPosts } from 'actions/posts';
+import { useAppDispatch } from 'index';
 
 export const MyPostPage: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [value, setValue] = React.useState(0);
   const posts = useSelector((store: IRootSelector) => store.posts);
   const { authData } = useSelector((store: IRootSelector) => store.signUp);
@@ -32,9 +33,22 @@ export const MyPostPage: React.FunctionComponent = () => {
     setValue(newValue);
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  // @ts-ignore
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleDelete = React.useCallback((postId: string) => {
-    console.log(postId);
-    dispatch(deletePost(postId));
+    // @ts-ignore
+    dispatch(deletePost(postId)).then(() => {
+      dispatch(getPosts());
+      setOpen(true);
+    });
   }, [posts]);
 
   return (
@@ -59,6 +73,11 @@ export const MyPostPage: React.FunctionComponent = () => {
             : <Typography>You don&apos;t have any posts</Typography>
           }
         </Grid>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+            Post succesfully deleted
+          </Alert>
+        </Snackbar>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <CreateNewPost />

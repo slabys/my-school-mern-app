@@ -18,7 +18,7 @@ import {
 } from '@mui/icons-material';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from 'actions/signUp';
+import { getLoggedInUser, logoutUser } from 'actions/signUp';
 import { Link, useLocation } from 'wouter';
 import { IRootSelector, UserData } from 'reducers';
 import { getCookie } from 'utils/utils';
@@ -51,10 +51,16 @@ export const Navbar: React.FunctionComponent = () => {
   React.useEffect(() => {
     if (getCookie('profile')) {
       setUser(JSON.parse(getCookie('profile') as string));
+      dispatch(getLoggedInUser(JSON.parse(getCookie('profile') as string)?.result?._id));
     } else {
-      if (authData) setUser(authData);
+      if (authData) {
+        setUser(authData);
+      } else {
+        setUser(null);
+      }
+      dispatch(logoutUser());
     }
-  }, [location]);
+  }, [location, dispatch]);
 
   const handleLogout = () => {
     dispatch(logoutUser());

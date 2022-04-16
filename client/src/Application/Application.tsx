@@ -9,11 +9,22 @@ import {
 } from '@mui/material';
 import { Navbar } from 'Application/Navbar';
 import { useDispatch } from 'react-redux';
-import { getPosts } from 'actions';
+import { getLoggedInUser, getPosts, logoutUser } from 'actions';
+import { getCookie } from 'utils/utils';
 
 export const Application: React.FunctionComponent = () => {
+  const [location] = useLocation();
   const dispatch = useDispatch();
-  dispatch(getPosts());
+
+  React.useEffect(() => {
+
+    dispatch(getPosts());
+    if (getCookie('profile')) {
+      dispatch(getLoggedInUser(JSON.parse(getCookie('profile') as string)?.result?._id));
+    } else {
+      dispatch(logoutUser());
+    }
+  }, [dispatch, location]);
 
   return <ThemeProvider theme={darkTheme}>
     <CssBaseline />

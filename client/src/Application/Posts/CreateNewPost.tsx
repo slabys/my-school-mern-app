@@ -1,10 +1,10 @@
 import React from 'react';
 import { ErrorMessage, Form, Formik, Field } from 'formik';
-import { Button, FormControl, Grid, MenuItem, TextField, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { createPost } from 'actions';
+import { Alert, Button, FormControl, Grid, MenuItem, Snackbar, TextField, Typography } from '@mui/material';
+import { createPost, getPosts } from 'actions';
 import * as Yup from 'yup';
 import { getCookie } from 'utils/utils';
+import { useAppDispatch } from 'index';
 
 export interface NewPostTypes {
   title: string,
@@ -27,11 +27,31 @@ const NewPostInitValues: NewPostTypes = {
 };
 
 export const CreateNewPost: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
+  const [open, setOpen] = React.useState(false);
+
+  // @ts-ignore
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleSubmit = (values: NewPostTypes) => {
     const tags = values.categories.split(',');
-    dispatch(createPost({ ...values, createdAt: new Date(), categories: tags, creatorId: JSON.parse(getCookie('profile') as string)?.result?._id }));
+
+    dispatch(createPost({
+      ...values,
+      createdAt: new Date(),
+      categories: tags,
+      creatorId: JSON.parse(getCookie('profile') as string)?.result?._id,
+      // @ts-ignore
+    })).then(() => {
+      dispatch(getPosts());
+      setOpen(true);
+    });
   };
 
   const validationSchema = () => Yup.object().shape({
@@ -45,7 +65,17 @@ export const CreateNewPost: React.FunctionComponent = () => {
     <>
       <Formik
         initialValues={NewPostInitValues}
-        onSubmit={handleSubmit}
+        onSubmit={(values, { resetForm }) => {
+          handleSubmit(values);
+          resetForm({
+            errors: undefined,
+            isSubmitting: false,
+            isValidating: false,
+            status: undefined,
+            submitCount: 0,
+            touched: undefined,
+          });
+        }}
         validationSchema={validationSchema}
       >
         {({ values, handleChange }) => (
@@ -132,6 +162,11 @@ export const CreateNewPost: React.FunctionComponent = () => {
           </Form>
         )}
       </Formik>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+          Post succesfully created
+        </Alert>
+      </Snackbar>
     </>
   );
 };

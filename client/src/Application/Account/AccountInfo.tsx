@@ -35,12 +35,12 @@ export const AccountInfo: React.FunctionComponent = () => {
   const userInfoData = { ...accountValuesInit, ...user };
 
   const handleSubmit = (values: AccountValues) => {
-    dispatch(updateUserInfo(values._id, { ...user }));
+    dispatch(updateUserInfo(values._id, { ...values }));
   };
 
   React.useEffect(() => {
     if(authData) setUser(authData.result)
-  },[authData])
+  },[authData, dispatch])
 
   const validationSchema = () => Yup.object({
     firstName: Yup.string().trim(),
