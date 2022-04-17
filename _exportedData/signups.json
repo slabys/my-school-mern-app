@@ -1,0 +1,53 @@
+{ 
+    "_id" : ObjectId("6249eb7635ddc3a81b7c7ea6"), 
+    "firstName" : "User", 
+    "lastName" : "Testing", 
+    "nickname" : "userTest", 
+    "email" : "user@test.cz", 
+    "password" : "$2a$12$ejyCehAcSMDBA34vYV/FyOSLDM1fFm26Q.j/rDgt2aeAzhqjEw4CG", 
+    "createdAt" : ISODate("2022-04-03T18:45:48.055+0000"), 
+    "__v" : NumberInt(0), 
+    "city" : "Nový Hradec Králové", 
+    "phoneNumber" : "+420 123 456 789", 
+    "street" : "Palachova 1129"
+}
+{ 
+    "_id" : ObjectId("6249ec0335ddc3a81b7c7eac"), 
+    "firstName" : "", 
+    "lastName" : "", 
+    "nickname" : "slabys", 
+    "email" : "slabys@test.cz", 
+    "password" : "$2a$12$4L6pQHFZhm0Qcp5AtzBgEOTTNoxD8OA3tPvwC48pyIqzDAPqz.HRy", 
+    "createdAt" : ISODate("2022-04-03T18:45:48.055+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("624ad6361c86292562159f43"), 
+    "firstName" : "", 
+    "lastName" : "", 
+    "nickname" : "simi", 
+    "email" : "simis@test.cz", 
+    "password" : "$2a$12$nNbbzK.GokF0sNoe6.kkLe5GrCrTCIVadMtuDBwdjS4okFY7aUxXy", 
+    "createdAt" : ISODate("2022-04-04T11:21:32.545+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("62507a6d309a2dc13f8246a2"), 
+    "firstName" : "tvoje", 
+    "lastName" : "máma", 
+    "nickname" : "YoMama", 
+    "email" : "mama@tvoje.cz", 
+    "password" : "$2a$12$YTkUca6PSxZJhUPgCQX4Z.YgLyp3OpIhYUWlUSQNc6z6X6Ajt/1Ae", 
+    "createdAt" : ISODate("2022-04-08T17:36:35.915+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6253079d7b3c2f46c5708d16"), 
+    "firstName" : "User", 
+    "lastName" : "Test", 
+    "nickname" : "UserTests", 
+    "email" : "user@testz.cz", 
+    "password" : "$2a$12$AeS8ZMk.RPbF0ekvWn2xpuYeEZgXvkL/P4.pYX9XyGyQyDTa6DU3K", 
+    "createdAt" : ISODate("2022-04-10T14:38:07.289+0000"), 
+    "__v" : NumberInt(0)
+}

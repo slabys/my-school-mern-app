@@ -1,0 +1,206 @@
+{ 
+    "_id" : ObjectId("6252e175fa894695ac517893"), 
+    "title" : "This is different post", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "creatorId" : ObjectId("62507a6d309a2dc13f8246a2"), 
+    "categories" : [
+        ""
+    ], 
+    "createdAt" : ISODate("2022-04-10T13:52:54.615+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6252f0ff7b3c2f46c5708ca8"), 
+    "title" : "This is FF post", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "creatorId" : ObjectId("6249eb7635ddc3a81b7c7ea6"), 
+    "categories" : [
+        ""
+    ], 
+    "createdAt" : ISODate("2022-04-10T14:38:07.194+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("625308387b3c2f46c5708d19"), 
+    "title" : "Post number one", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "prizeType" : "SELL", 
+    "prize" : "250", 
+    "creatorId" : ObjectId("6253079d7b3c2f46c5708d16"), 
+    "categories" : [
+        "alpacas", 
+        "animals", 
+        "crazy stuff"
+    ], 
+    "createdAt" : ISODate("2022-04-10T14:38:07.194+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("625308397b3c2f46c5708d1b"), 
+    "title" : "Post number one", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "prizeType" : "SELL", 
+    "prize" : "250", 
+    "creatorId" : ObjectId("6253079d7b3c2f46c5708d16"), 
+    "categories" : [
+        "alpacas", 
+        "animals", 
+        "crazy stuff"
+    ], 
+    "createdAt" : ISODate("2022-04-10T14:38:07.194+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6253083a7b3c2f46c5708d1d"), 
+    "title" : "Post number one", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "prizeType" : "SELL", 
+    "prize" : "250", 
+    "creatorId" : ObjectId("6253079d7b3c2f46c5708d16"), 
+    "categories" : [
+        "alpacas", 
+        "animals", 
+        "crazy stuff"
+    ], 
+    "createdAt" : ISODate("2022-04-10T14:38:07.194+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6253083d7b3c2f46c5708d1f"), 
+    "title" : "Post number two", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "prizeType" : "SELL", 
+    "prize" : "250", 
+    "creatorId" : ObjectId("6253079d7b3c2f46c5708d16"), 
+    "categories" : [
+        "alpacas", 
+        "animals", 
+        "crazy stuff"
+    ], 
+    "createdAt" : ISODate("2022-04-10T14:38:07.194+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("625308407b3c2f46c5708d21"), 
+    "title" : "Post number three", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "prizeType" : "SELL", 
+    "prize" : "250", 
+    "creatorId" : ObjectId("6253079d7b3c2f46c5708d16"), 
+    "categories" : [
+        "alpacas", 
+        "animals", 
+        "crazy stuff"
+    ], 
+    "createdAt" : ISODate("2022-04-10T14:38:07.194+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("625308447b3c2f46c5708d23"), 
+    "title" : "Post number four", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "prizeType" : "SELL", 
+    "prize" : "250", 
+    "creatorId" : ObjectId("6253079d7b3c2f46c5708d16"), 
+    "categories" : [
+        "alpacas", 
+        "animals", 
+        "crazy stuff"
+    ], 
+    "createdAt" : ISODate("2022-04-10T14:38:07.194+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("625308637b3c2f46c5708d25"), 
+    "title" : "Post number five", 
+    "description" : "This impressive paella is a perfect party dish and a fun meal to cooktogether with your guests. Add 1 cup of frozen peas along with the mussels, if you like.", 
+    "prizeType" : "SELL", 
+    "prize" : "250", 
+    "creatorId" : ObjectId("6253079d7b3c2f46c5708d16"), 
+    "categories" : [
+        "alpacas", 
+        "animals", 
+        "crazy stuff"
+    ], 
+    "createdAt" : ISODate("2022-04-10T14:38:07.194+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6256c27e519dd05b446f71f4"), 
+    "title" : "New title", 
+    "description" : "New desc", 
+    "prizeType" : "FREE", 
+    "prize" : "", 
+    "creatorId" : ObjectId("6249eb7635ddc3a81b7c7ea6"), 
+    "categories" : [
+        "one", 
+        " two"
+    ], 
+    "createdAt" : ISODate("2022-04-13T12:30:54.262+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6256c2c5519dd05b446f71fa"), 
+    "title" : "new ", 
+    "description" : "new", 
+    "prizeType" : "FREE", 
+    "prize" : "", 
+    "creatorId" : ObjectId("6249eb7635ddc3a81b7c7ea6"), 
+    "categories" : [
+        "new"
+    ], 
+    "createdAt" : ISODate("2022-04-13T12:32:05.808+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6256c46d519dd05b446f7204"), 
+    "title" : "asd", 
+    "description" : "asd", 
+    "prizeType" : "FREE", 
+    "prize" : "", 
+    "creatorId" : ObjectId("6249eb7635ddc3a81b7c7ea6"), 
+    "categories" : [
+        "asd"
+    ], 
+    "createdAt" : ISODate("2022-04-13T12:39:09.882+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6256c485519dd05b446f7206"), 
+    "title" : "asd", 
+    "description" : "asd", 
+    "prizeType" : "FREE", 
+    "prize" : "", 
+    "creatorId" : ObjectId("6249eb7635ddc3a81b7c7ea6"), 
+    "categories" : [
+        "asd"
+    ], 
+    "createdAt" : ISODate("2022-04-13T12:39:33.056+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6256c4d5519dd05b446f720f"), 
+    "title" : "adghj", 
+    "description" : "htrgfd", 
+    "prizeType" : "FREE", 
+    "prize" : "", 
+    "creatorId" : ObjectId("6249eb7635ddc3a81b7c7ea6"), 
+    "categories" : [
+        "ppp"
+    ], 
+    "createdAt" : ISODate("2022-04-13T12:40:53.400+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("6256c622c53f32109b441517"), 
+    "title" : "This", 
+    "description" : "This", 
+    "prizeType" : "FREE", 
+    "prize" : "", 
+    "creatorId" : ObjectId("6249eb7635ddc3a81b7c7ea6"), 
+    "categories" : [
+        "This"
+    ], 
+    "createdAt" : ISODate("2022-04-13T12:46:26.588+0000"), 
+    "__v" : NumberInt(0)
+}
