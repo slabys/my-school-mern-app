@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getCookie } from 'utils/utils';
 
-const API = axios.create({baseURL: 'https://my-owe-school-app.herokuapp.com'}) //https://my-owe-school-app.herokuapp.com || http://localhost:5000
+const API = axios.create({baseURL: 'http://localhost:5000'}) //https://my-owe-school-app.herokuapp.com || http://localhost:5000
 
 API.interceptors.request.use((req) => {
   if (getCookie('profile') && req.headers !== undefined) {
