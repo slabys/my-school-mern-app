@@ -2,12 +2,14 @@ import { combineReducers } from 'redux';
 
 import posts from './posts';
 import signUp from './signUp';
+import categories from './categories';
 
 export interface IRootSelector {
   posts: [PostData];
   signUp: {
     authData: UserData;
   };
+  categories: [string]
 }
 
 export interface UserData {
@@ -40,4 +42,5 @@ export interface PostData {
 export default combineReducers({
   posts,
   signUp,
+  categories,
 });

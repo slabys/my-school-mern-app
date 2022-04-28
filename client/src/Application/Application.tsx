@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { Navbar } from 'Application/Navbar';
 import { useDispatch } from 'react-redux';
-import { getLoggedInUser, getPosts, logoutUser } from 'actions';
+import { getLoggedInUser, getPosts, logoutUser, getCategories } from 'actions';
 import { getCookie } from 'utils/utils';
 
 export const Application: React.FunctionComponent = () => {
@@ -19,6 +19,7 @@ export const Application: React.FunctionComponent = () => {
   React.useEffect(() => {
 
     dispatch(getPosts());
+    dispatch(getCategories());
     if (getCookie('profile')) {
       dispatch(getLoggedInUser(JSON.parse(getCookie('profile') as string)?.result?._id));
     } else {

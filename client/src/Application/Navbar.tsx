@@ -46,8 +46,6 @@ export const Navbar: React.FunctionComponent = () => {
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
 
-  //TODO FIX (refreshing without end) if (user) dispatch(getLoggedInUser(user?.result._id));
-
   React.useEffect(() => {
     if (getCookie('profile')) {
       setUser(JSON.parse(getCookie('profile') as string));

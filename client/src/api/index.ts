@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getCookie } from 'utils/utils';
 
-const API = axios.create({baseURL: 'http://localhost:5000'}) //https://my-owe-school-app.herokuapp.com || http://localhost:5000
+const API = axios.create({baseURL: 'https://my-owe-school-app.herokuapp.com'}) //https://my-owe-school-app.herokuapp.com || http://localhost:5000
 
 API.interceptors.request.use((req) => {
   if (getCookie('profile') && req.headers !== undefined) {
@@ -14,6 +14,7 @@ API.interceptors.request.use((req) => {
 export const fetchPosts = () => API.get('/posts');
 export const createPost = (newPost: any) => API.post('/posts', newPost);
 export const deletePost = (postId: string) => API.delete(`/posts/${postId}`);
+export const getCategories = () => API.get(`/posts/categories`);
 
 //SignUp
 export const getLoggedInUser = (userId: any) => API.get(`/signup/account/${userId}`);
